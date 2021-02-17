@@ -1,0 +1,21 @@
+<%- include('header', {active: 'categoria'}); -%>
+
+<body class="sfondo">
+<main class="container mt-3">
+    <div class="row">
+        <aside class="col-lg col">
+            <nav id="sidebar" class="list-group text-center">
+                <a data-id="all" href="./" class="list-group-item list-group-item-action">
+                    Tutti
+                </a>
+
+                <% for(let i=0; i<categorie.length; i++) { %>
+                <a href="/categoria/<%= categorie[i].categoria%>" class="list-group-item list-group-item-action">
+                    <%= categorie[i].categoria%>
+                </a>
+                <% } %>
+            </nav>
+        </aside>
+    </div>
+</main>
+</body>

@@ -1,0 +1,235 @@
+<%- include('header', {active: "utente"}); -%>
+
+    <body class="sfondo">
+        <main class="container-fluid mt-3">
+            <div class="jumbotron">
+                <div class="row">
+                    <h1 class="col">
+                        <%- user.username %>
+                    </h1>
+                </div>
+                <div class="row">
+                    <p class="col">Ruolo:
+                        <%- user.ruolo %>
+                    </p>
+                </div>
+                <hr class="my-4">
+                <h3 class="row mb-3 mx-auto">Episodi preferiti</h3>
+                <ul class="row list-group">
+                    <% if(preferiti.length > 0){ %>
+                        <% for(let i=0; i<preferiti.length; i++) { %>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span><%= preferiti[i].titolo %></span>
+                            </li>
+                            <% } %>
+                                <% }else{ %>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>Attualmente non hai preferiti!</span>
+                                    </li>
+                                    <% } %>
+                </ul>
+            </div>
+
+            <div class="container">
+                <div class="row d-flex justify-content-around mb-5" id="creatore-row-table ">
+                    <div class="col">
+                        <% if (serie.length > 0) { %>
+                            <table class="table table-light table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Titolo</th>
+                                        <th>Cancella</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for( let i = 0; i < serie.length; i++ ) { %>
+                                        <tr>
+                                            <td>
+                                                <%= serie[i].titolo %>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger" type="button" id="<%= serie[i].id_serie %>" onclick="deleteSerie(this.id)">Elimina</button>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                </tbody>
+                            </table>
+                            <% }else{ %>
+                                <h5 class="text-center bottone-serie-episodio-elimina">Nessuna serie creata</h5>
+                                <% } %>
+                    </div>
+                    <div class="col">
+                        <% if (episodi.length > 0) { %>
+                            <table class="table table-light table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Titolo</th>
+                                        <th>Cancella</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for( let i = 0; i < episodi.length; i++ ) { %>
+                                        <tr>
+                                            <td>
+                                                <%= episodi[i].titolo %>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger" type="button" id="<%= episodi[i].id_episodio %>" onclick="deleteEpisodio(this.id)">Elimina</button>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                </tbody>
+                            </table>
+                            <% }else{ %>
+                                <h5 class="text-center bottone-serie-episodio-elimina">Nessuna episodio creato</h5>
+                                <% } %>
+                    </div>
+                </div>
+                <div class="row" style="display: none;" id="creatore-row-function">
+                    <div class="col">
+                        <button class="btn btn-warning btn-lg btn-block" type="button" data-toggle="modal" data-target="#serieModal">Aggiungi Serie</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-warning btn-lg btn-block" type="button" data-toggle="modal" data-target="#episodioModal">Aggiungi Episodio</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+        <!-- AGGIUNGI SERIE MODAL -->
+        <div class="modal fade" id="serieModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-group" action="/serie/aggiungi" method="post">
+                            <input class="form-control mb-2" type="text" placeholder="Titolo" name="titolo" id="titolo">
+                            <textarea class="form-control mb-2" name="descrizione" id="descrizione" rows="4" maxlength="200" placeholder="Descrizione"></textarea>
+                            <select class="form-control mb-2" name="categoria" id="categoria">
+                                <option value="categoria" disabled selected>Categoria</option>
+                                <option value="videogiochi">Videogiochi</option>
+                                <option value="intrattenimento">Intrattenimento</option>
+                                <option value="musica">Musica</option>
+                                <option value="programmazione">Programmazione</option>
+                                <option value="sneakers">Sneakers</option>                         
+                            </select>
+                            <p>Inserisci immagine:</p>
+                            <input class="form-control mb-2" name="inpFile" type="file" id="inpFile" placeholder="immagine">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit">Inserisci</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AGGIUNGI EPISODIO MODAL -->
+        <div class="modal fade" id="episodioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-group" action="/episodio/aggiungi" method="post">
+                            <input class="form-control mb-2" type="text" placeholder="Titolo" name="titolo" id="titolo">
+                            <textarea class="form-control mb-2" name="descrizione" id="descrizione" rows="4" maxlength="200" placeholder="Descrizione"></textarea>
+                            <p>Inserisci file audio:</p>
+                            <input class="form-control mb-2" name="audio" type="file" id="audio" placeholder="Audio">
+                            <select class="form-control mb-2" name="serie" id="serie">
+                                <option value="serie" disabled selected>Serie</option>
+                                <% if(serie.length > 0){ %> 
+                                    <% for( let i = 0; i < serie.length; i++ ) { %>
+                                        <option value="<%= serie[i].id_serie %> "><%= serie[i].titolo %> </option>
+                                    <% } %>
+                                <% } %> 
+                            </select>
+                            <input class="form-control mb-2" type="text" placeholder="Sponsor(nome sponsor)" name="sponsor" id="sponsor">
+                            <input class="form-control mb-2" type="number" placeholder="Prezzo&euro;" name="prezzo" id="prezzo">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit">Inserisci</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            //CONTROLLO RUOLO PER FUNZIONI 
+            if (`<%- user.ruolo.trim() %>` === "creatore") {
+                document.getElementById('creatore-row-function').style.display = "flex";
+                document.getElementById('creatore-row-table').style.display = "flex"; //segnala null non so per quale motivo
+            } else {
+                document.getElementById('creatore-row-table').style.display = "none";
+            }
+
+
+            //SCRIPT MODAL SERIE
+            $('#serieModal').on('shown.bs.modal', function() {
+                $('#myInput').trigger('focus')
+            });
+            //SCRIPT MODAL Episodi
+            $('#episodioModal').on('shown.bs.modal', function() {
+                $('#myInput').trigger('focus')
+            });
+
+            function deleteSerie(id_serie) {
+                if (confirm("ATTENZIONE QUESTO NON E' UN VIRUS \n\n Sei sicuro di voler eliminare questa serie?\nL'operazione sarà irreversibile"))
+                    $.post("/serie/rimuovi", {
+                        id_serie: id_serie
+                    })
+                    .done(function() {
+                        location.reload();
+                    })
+                    .fail(function() {
+                        alert("error");
+                    });
+            }
+
+            function deleteEpisodio(id_episodio) {
+                if (confirm("ATTENZIONE QUESTO NON E' UN VIRUS \n\n Sei sicuro di voler eliminare questo episodio?\nL'operazione sarà irreversibile"))
+                    $.post("/episodio/rimuovi", {
+                        id_episodio: id_episodio
+                    })
+                    .done(function() {
+                        location.reload();
+                    })
+                    .fail(function() {
+                        alert("error");
+                    });
+            }
+
+
+            //RESTITUISCE UN ERRORE ANCHE MODIFICANDO IL FORM
+
+            //inserimento immagine nel database
+            const myForm = document.getElementById("serieModal");
+            const inpFile = document.getElementById("inpFile");
+
+            myForm.addEventListener("submit", e => {
+                e.preventDefault();
+
+                const endpoint = "upload.php";
+                const formData = new FormData();
+
+                console.log(inpFile.files);
+
+                formData.append("inpFile", inpFile.files[0]);
+
+                fetch(endpoint, {
+                    method: "post",
+                    body: formData
+                }).catch(console.error);
+            });
+        </script>
+    </body>

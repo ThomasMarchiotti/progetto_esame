@@ -1,0 +1,47 @@
+.pic-image {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.changeColor:hover {
+    color : red;
+}
+
+.headerColor {
+    background-color: navajowhite;
+}
+
+.sfondo {
+    background-image: url("Sfondo.jpg");
+}
+
+.sfondo-righe {
+    background-color: white;
+}
+
+.opacity-route-nav {
+    opacity: 1;
+}
+
+.bottone-serie-episodio-elimina {
+    color: red;
+    background-color: whitesmoke;
+}
+
+.riga-tab-serie {
+    background-color: navajowhite;
+    opacity: 0.91;
+    color: black;
+}
+
+.riga-tab-index {
+    font-weight: bold;
+    background-color: navajowhite;
+    opacity: 0.91;
+}
+
+.riga-tab-index-colore-link {
+    color: black;
+}

@@ -1,0 +1,33 @@
+{
+  "name": "esame",
+  "version": "1.0.0",
+  "description": "progetto per esame",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "author": "Thomas Marchiotti",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.8",
+    "express-flash": "0.0.2",
+    "express-passport-logout": "^0.1.0",
+    "express-session": "^1.17.1",
+    "express-upload": "^0.1.0",
+    "express-validator": "^6.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "node-pre-gyp": "^0.17.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.4"
+  }
+}

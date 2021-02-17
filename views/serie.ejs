@@ -1,0 +1,43 @@
+<%- include('header', {active: 'serie'}); -%>
+
+<body class="sfondo">
+    <main class="container-fluid mt-3">
+        <div class="jumbotron">
+            <div class="row mb-3">
+                <img src="<%- serie.immagine %>" alt="pic_<%- serie.titolo %>" class="img-fluid col-3 pic-image">
+                <h1 class="col"><%- serie.titolo %></h1>
+            </div>
+
+            <div class="row mb-3">
+                <span class="col"><%= serie.descrizione %></span>
+            </div>
+            <table class="col-lg-8 col mx-auto table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Titolo</th>
+                        <th>Descrizione</th>
+                        <th>Prezzo</th>
+                    </tr>
+                </thead>
+                <tbody id="serie">
+                    <!-- JS will fill it -->
+                    <% for(let i=0; i<episodi.length; i++) { %>
+                        <tr>
+                            <td class="riga-tab-serie">
+                                <a href="/episodio/<%= episodi[i].id_episodio %>" >
+                                    <%= episodi[i].titolo %>
+                                </a>
+                            </td>
+                            <td>
+                                <%= episodi[i].descrizione %>
+                            </td>
+                            <td>
+                                <%= episodi[i].prezzo = episodi[i].prezzo==0 ? "gratis" : "€"+episodi[i].prezzo %>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>

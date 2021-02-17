@@ -1,0 +1,54 @@
+<%- include('header', {active: 'serie'}); -%>
+
+    <body class="sfondo">
+        <main class="container-fluid mt-3">
+            <div class="row">
+                <div class="col-lg-8 col mx-auto">
+                    <input class="form-control mb-4 mr-2" type="text" id="myInput" name="cerca" placeholder="cerca">
+                <table class="table" id="myTable">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Titolo</th>
+                            <th>Descrizione</th>
+                            <th>Categoria</th>
+                            <th>Nome autore</th>
+                        </tr>
+                    </thead>
+                    <tbody id="serie">
+                        <!-- JS will fill it -->
+                        <% for(let i=0; i<serie.length; i++){ %>
+                            <tr>
+                                <td class="riga-tab-index" >
+                                    <a href="../serie/<%= serie[i].id_serie %>" class="riga-tab-index-colore-link" >
+                                        <%= serie[i].titolo %>
+                                    </a>
+                                </td>
+                                <td class="sfondo-righe">
+                                    <%= serie[i].descrizione %>
+                                </td>
+                                <td class="sfondo-righe">
+                                    <%= serie[i].categoria %>
+                                </td>
+                                <td class="sfondo-righe">
+                                    <%= serie[i].nome_autore %>
+                                </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        
+        <script>
+            $(document).ready(function() {
+                $("#myInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTable tbody>tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+        </script>
+
+    </body>
